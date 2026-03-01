@@ -1,0 +1,914 @@
+<!doctype html>
+
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Poyraz Efendi — Bio</title>
+    <meta name="description" content="PoyrazEfendi — Frontend mühendisi olarak açık kaynak projeler geliştiriyorum, projelerimi inceleyebilir ve iletişim linklerim üzerinden bana ulaşabilirsin.">
+    <meta name="theme-color" content="#000080">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://poyrazefendi.com">
+	<meta property="og:title" content="PoyrazEfendi — Bio">
+	<meta property="og:description" content="Web ve Android teknolojileriyle modern çözümler üretiyorum. Telegram ekosistemi ve bot geliştirme üzerine çalışmalar yapıyorum.">
+	<meta property="og:image" content="https://poyrazefendi.com/pp.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="PoyrazEfendi — Bio">
+	<meta name="twitter:description" content="Web ve Android teknolojileriyle modern çözümler üretiyorum. Telegram ekosistemi ve bot geliştirme üzerine çalışmalar yapıyorum.">
+	<meta name="twitter:image" content="https://poyrazefendi.com/pp.jpg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+
+<style>
+    .preloader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #020c1b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 9999;
+        transition: opacity 0.6s, visibility 0.6s;
+    }
+    .preloader.done {
+        opacity: 0;
+        visibility: hidden;
+    }
+    .preloader-spinner {
+        width: 50px; height: 50px;
+        border: 3px solid rgba(0,255,255,0.1);
+        border-top-color: #00ffff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    .preloader-text {
+        margin-top: 18px;
+        color: #00ffff;
+        font-family: 'Fira Code', monospace;
+        font-size: 14px;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    :root, [data-theme="dark"] {
+        --bg: #020c1b;
+        --bg-gradient-1: #0a192f;
+        --bg-gradient-2: #020c1b;
+        --surface: #0b1220;
+        --muted: #7594b8;
+        --accent: #00ffff;
+        --accent-dark: #000080;
+        --card: rgba(15, 23, 32, 0.7);
+        --text: #b7c2cc;
+        --heading: #ffffff;
+        --border: rgba(255, 255, 255, 0.05);
+        --border-hover: var(--accent);
+        --btn-bg: rgba(255, 255, 255, 0.03);
+        --btn-hover: rgba(255, 255, 255, 0.08);
+        --radius: 20px;
+        --max-width: 860px;
+        --gradient-main: linear-gradient(135deg, #00ffff, #000080);
+        --skill-bar-bg: rgba(255,255,255,0.05);
+        --timeline-line: rgba(0,255,255,0.2);
+        --footer-bg: rgba(15, 23, 32, 0.5);
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="light"] {
+        --bg: #f0f4f8;
+        --bg-gradient-1: #e2e8f0;
+        --bg-gradient-2: #f0f4f8;
+        --surface: #ffffff;
+        --muted: #5a6b7f;
+        --accent: #0066cc;
+        --accent-dark: #003d7a;
+        --card: rgba(255, 255, 255, 0.85);
+        --text: #4a5568;
+        --heading: #1a202c;
+        --border: rgba(0, 0, 0, 0.08);
+        --border-hover: var(--accent);
+        --btn-bg: rgba(0, 0, 0, 0.03);
+        --btn-hover: rgba(0, 0, 0, 0.06);
+        --gradient-main: linear-gradient(135deg, #0066cc, #003d7a);
+        --skill-bar-bg: rgba(0,0,0,0.06);
+        --timeline-line: rgba(0,102,204,0.3);
+        --footer-bg: rgba(255,255,255,0.6);
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="light"] .preloader { background: #f0f4f8; }
+    [data-theme="light"] .preloader-spinner { border-color: rgba(0,102,204,0.1); border-top-color: #0066cc; }
+    [data-theme="light"] .preloader-text { color: #0066cc; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        background: radial-gradient(circle at top right, var(--bg-gradient-1), var(--bg-gradient-2));
+        background-attachment: fixed;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 60px 20px 0;
+        overflow-x: hidden;
+        transition: background 0.5s, color 0.5s;
+    }
+
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes bannerReveal {
+        from { opacity: 0; transform: scaleY(0.6); transform-origin: top; }
+        to { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    }
+    @keyframes avatarPop {
+        0% { opacity: 0; transform: scale(0) rotate(-20deg); }
+        60% { opacity: 1; transform: scale(1.15) rotate(5deg); }
+        100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes avatarGlow {
+        0%, 100% { opacity: 1; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); }
+        50% { opacity: 1; box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.1); }
+    }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInBlur {
+        from { opacity: 0; filter: blur(8px); transform: translateY(10px); }
+        to { opacity: 1; filter: blur(0); transform: translateY(0); }
+    }
+    @keyframes socialSlideIn {
+        from { opacity: 0; transform: translateX(-30px) scale(0.9); }
+        to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes cardReveal {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+        0% { opacity: 0; transform: translateY(100vh) scale(0); }
+        10% { opacity: 0.6; }
+        90% { opacity: 0.2; }
+        100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+    }
+    @keyframes ripple-animation { to { transform: scale(4); opacity: 0; } }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes barPulse {
+        0%, 100% { transform: scaleY(1); }
+        50% { transform: scaleY(0.4); }
+    }
+
+    .top-controls { opacity: 0; animation: slideInRight 0.6s cubic-bezier(0.2, 1, 0.3, 1) 0.3s forwards; }
+    .banner { opacity: 0; animation: bannerReveal 0.8s cubic-bezier(0.2, 1, 0.3, 1) 0.2s forwards; }
+    .avatar { opacity: 0; animation: avatarPop 0.8s cubic-bezier(0.2, 1, 0.3, 1) 0.5s forwards; }
+    .avatar.glow { opacity: 1; animation: avatarGlow 3s ease-in-out infinite; }
+    .meta h1 { opacity: 0; animation: slideUp 0.7s cubic-bezier(0.2, 1, 0.3, 1) 0.7s forwards; }
+    .role { opacity: 0; animation: fadeInBlur 0.8s cubic-bezier(0.2, 1, 0.3, 1) 0.9s forwards; }
+    .bio { opacity: 0; animation: fadeInBlur 0.8s cubic-bezier(0.2, 1, 0.3, 1) 1.1s forwards; }
+    .social-btn { opacity: 0; }
+    .social-btn:nth-child(1) { animation: socialSlideIn 0.5s cubic-bezier(0.2, 1, 0.3, 1) 1.3s forwards; }
+    .social-btn:nth-child(2) { animation: socialSlideIn 0.5s cubic-bezier(0.2, 1, 0.3, 1) 1.45s forwards; }
+    .social-btn:nth-child(3) { animation: socialSlideIn 0.5s cubic-bezier(0.2, 1, 0.3, 1) 1.6s forwards; }
+    .card.profile-header { opacity: 0; animation: cardReveal 0.8s cubic-bezier(0.2, 1, 0.3, 1) 0.1s forwards; }
+
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .top-controls {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    .ctrl-btn {
+        background: rgba(0, 255, 255, 0.1);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        color: var(--accent);
+        padding: 6px 14px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 1px;
+        backdrop-filter: blur(10px);
+        transition: 0.3s;
+        text-transform: uppercase;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .ctrl-btn:hover {
+        background: var(--accent);
+        color: var(--bg);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+    .ctrl-btn svg { width: 14px; height: 14px; }
+
+    .container {
+        width: 100%;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+    .card {
+        background: var(--card);
+        backdrop-filter: blur(12px);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        margin-bottom: 24px;
+        overflow: hidden;
+        transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+    }
+
+    .banner {
+        width: 100%; height: 200px;
+        background-image: url('banner.jpg'), var(--gradient-main);
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    .banner::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 100%; height: 50%;
+        background: linear-gradient(transparent, var(--card));
+    }
+    .profile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+    .avatar {
+        width: 140px; height: 140px;
+        border-radius: 999px;
+        padding: 5px;
+        background: var(--gradient-main);
+        margin-top: -70px;
+        position: relative;
+        z-index: 5;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        border: 8px solid var(--surface);
+    }
+    .avatar img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        border-radius: 999px;
+    }
+    .meta { padding: 0 30px 40px; width: 100%; }
+    .meta h1 { margin: 20px 0 8px; font-size: 32px; color: var(--heading); letter-spacing: -1px; }
+
+    .role {
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 15px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        min-height: 22px;
+    }
+    .typewriter-cursor {
+        display: inline-block;
+        width: 2px; height: 1em;
+        background: var(--accent);
+        margin-left: 2px;
+        vertical-align: text-bottom;
+        animation: blink 0.7s infinite;
+    }
+    .bio { max-width: 600px; line-height: 1.7; margin: 0 auto 30px; font-size: 15px; }
+
+    .socials {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .social-btn {
+        position: relative;
+        padding: 14px 20px;
+        border-radius: 15px;
+        color: var(--heading);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: var(--btn-bg);
+        border: 1px solid var(--border);
+        transition: 0.3s;
+        overflow: hidden;
+    }
+    .social-btn:hover {
+        transform: translateY(-3px);
+        background: var(--btn-hover);
+        border-color: var(--border-hover);
+    }
+    .social-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .github { border-left: 3px solid #333; }
+    .telegram { border-left: 3px solid #0088cc; }
+    .instagram { border-left: 3px solid #dc2743; }
+
+    .section-title {
+        font-size: 22px;
+        color: var(--heading);
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-title::after {
+        content: '';
+        height: 1px;
+        flex: 1;
+        background: var(--timeline-line);
+    }
+
+    .skills-inner { padding: 30px; }
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    .skill-item { margin-bottom: 5px; }
+    .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .skill-name {
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--heading);
+    }
+    .skill-pct {
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: 700;
+        font-family: 'Fira Code', monospace;
+    }
+    .skill-bar {
+        height: 6px;
+        background: var(--skill-bar-bg);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .skill-fill {
+        height: 100%;
+        background: var(--gradient-main);
+        border-radius: 10px;
+        transition: width 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+        width: 0;
+    }
+
+    .spotify-inner { padding: 30px; }
+    .spotify-widget {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px;
+        background: var(--btn-bg);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+    }
+    .spotify-icon {
+        width: 50px; height: 50px;
+        background: #1db954;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .spotify-icon svg { width: 28px; height: 28px; fill: #fff; }
+    .spotify-info { flex: 1; min-width: 0; }
+    .spotify-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .spotify-track { font-weight: 700; color: var(--heading); font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .spotify-artist { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .spotify-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 20px;
+    }
+    .spotify-bar {
+        width: 3px;
+        background: #1db954;
+        border-radius: 2px;
+        animation: barPulse 1.2s ease-in-out infinite;
+    }
+    .spotify-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+    .spotify-bar:nth-child(2) { height: 16px; animation-delay: 0.2s; }
+    .spotify-bar:nth-child(3) { height: 10px; animation-delay: 0.4s; }
+    .spotify-bar:nth-child(4) { height: 18px; animation-delay: 0.1s; }
+
+    .timeline-inner { padding: 30px; }
+    .timeline { position: relative; padding-left: 30px; }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 8px; top: 0;
+        width: 2px; height: 100%;
+        background: var(--timeline-line);
+    }
+    .timeline-item { position: relative; margin-bottom: 30px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+        position: absolute;
+        left: -26px; top: 4px;
+        width: 14px; height: 14px;
+        border-radius: 50%;
+        background: var(--gradient-main);
+        border: 3px solid var(--surface);
+        box-shadow: 0 0 10px rgba(0,255,255,0.3);
+    }
+    .timeline-date {
+        font-size: 11px;
+        color: var(--accent);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        font-family: 'Fira Code', monospace;
+    }
+    .timeline-title { font-size: 16px; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+    .timeline-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .projects-inner { padding: 30px; }
+    .project-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .project {
+        background: var(--btn-bg);
+        padding: 25px;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        transition: 0.3s;
+    }
+    .project:hover {
+        background: var(--btn-hover);
+        border-color: var(--border-hover);
+        transform: scale(1.02);
+    }
+    .project h3 { margin: 0; font-size: 18px; color: var(--heading); }
+    .p-desc { font-size: 13px; color: var(--muted); margin: 12px 0 20px; min-height: 40px; }
+    .proj-cta {
+        display: inline-block;
+        padding: 10px 20px;
+        background: var(--gradient-main);
+        color: #fff;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    .footer {
+        background: var(--footer-bg);
+        backdrop-filter: blur(10px);
+        padding: 30px 20px;
+        text-align: center;
+        margin-top: 20px;
+        border-top: 1px solid var(--border);
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+    .footer-content { max-width: var(--max-width); margin: 0 auto; }
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .footer-link {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+    .footer-link:hover { color: var(--accent); }
+    .footer-copy { font-size: 12px; color: var(--muted); opacity: 0.7; }
+    .footer-copy .heart { color: #ff4757; }
+
+    .cursor-glow {
+        position: fixed;
+        width: 300px; height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,255,255,0.06) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+        transform: translate(-50%, -50%);
+        transition: left 0.15s ease-out, top 0.15s ease-out;
+    }
+    [data-theme="light"] .cursor-glow {
+        background: radial-gradient(circle, rgba(0,102,204,0.04) 0%, transparent 70%);
+    }
+
+    .particles {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+    .particle {
+        position: absolute;
+        width: 3px; height: 3px;
+        background: var(--accent);
+        border-radius: 50%;
+        opacity: 0;
+    }
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        background: rgba(0, 255, 255, 0.2);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+    }
+
+    @media (max-width: 600px) {
+        body { padding: 20px 15px 0; }
+        .banner { height: 150px; }
+        .avatar { width: 110px; height: 110px; margin-top: -55px; }
+        .meta h1 { font-size: 26px; }
+        .skills-grid { grid-template-columns: 1fr; }
+        .top-controls { top: 12px; right: 12px; }
+        .ctrl-btn { padding: 5px 10px; font-size: 11px; }
+        .cursor-glow { display: none; }
+        .spotify-widget { flex-direction: column; text-align: center; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="preloader-spinner"></div>
+        <div class="preloader-text">Loading...</div>
+    </div>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<div class="particles" id="particles"></div>
+
+<main class="container">
+    <div class="top-controls">
+        <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn" title="Tema Değiştir">
+            <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
+        </button>
+        <button class="ctrl-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
+    </div>
+
+    <header class="card profile-header">
+        <div class="banner"></div>
+        
+        <div class="avatar" id="avatar">
+            <img src="pp.jpg" alt="PoyrazEfendi" onerror="this.src='https://ui-avatars.com/api/?name=Poyraz+Efendi&background=0b1220&color=00ffff'">
+        </div>
+
+        <div class="meta">
+            <h1 id="userName">Poyraz Efendi</h1>
+            <p class="role" id="userRole"><span id="typewriterText"></span><span class="typewriter-cursor"></span></p>
+            <p class="bio" id="userBio">Web ve Android teknolojileriyle modern çözümler üretiyorum. Telegram ekosistemi ve bot geliştirme üzerine çalışmalar yapıyorum.</p>
+
+            <div class="socials">
+                <a class="social-btn github" href="https://github.com/Poyrazefendi" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a class="social-btn telegram" href="https://t.me/PoyrazEfendi" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    Telegram
+                </a>
+                <a class="social-btn instagram" href="https://instagram.com/bvuam" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913a5.885 5.885 0 001.384 2.126A5.868 5.868 0 004.14 23.37c.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 002.126-1.384 5.86 5.86 0 001.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 00-1.384-2.126A5.847 5.847 0 0019.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227a3.81 3.81 0 01-.899 1.382 3.744 3.744 0 01-1.38.896c-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421a3.716 3.716 0 01-1.379-.899 3.644 3.644 0 01-.9-1.38c-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 11-2.882 0 1.441 1.441 0 012.882 0z"/></svg>
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="card scroll-reveal" id="skillsSection">
+        <div class="skills-inner">
+            <h2 class="section-title" id="skillsTitle">Yeteneklerim</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">HTML / CSS</span>
+                        <span class="skill-pct">75%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="60"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-pct">30%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="30"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Python</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">React</span>
+                        <span class="skill-pct">20%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="20"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Node.js</span>
+                        <span class="skill-pct">50%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Telegram Bot API</span>
+                        <span class="skill-pct">85%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card scroll-reveal" id="spotifySection">
+        <div class="spotify-inner">
+            <h2 class="section-title" id="spotifyTitle">Dinliyorum</h2>
+            <div class="spotify-widget">
+                <div class="spotify-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                </div>
+                <div class="spotify-info">
+                    <div class="spotify-label" id="spotifyLabel">Şu an dinliyorum</div>
+                    <div class="spotify-track" id="spotifyTrack">Wegh</div>
+                    <div class="spotify-artist" id="spotifyArtist">Geri ver</div>
+                </div>
+                <div class="spotify-bars">
+                    <div class="spotify-bar"></div>
+                    <div class="spotify-bar"></div>
+                    <div class="spotify-bar"></div>
+                    <div class="spotify-bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card scroll-reveal" id="timelineSection">
+        <div class="timeline-inner">
+            <h2 class="section-title" id="timelineTitle">Deneyim</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026 — Günümüz</div>
+                    <div class="timeline-title" data-tr="Frontend Geliştirici" data-en="Frontend Developer">Frontend Geliştirici</div>
+                    <div class="timeline-desc" data-tr="Modern web teknolojileri ile kullanıcı arayüzleri geliştirme. React, Vue ve vanilla JS projeleri." data-en="Building user interfaces with modern web technologies. React, Vue, and vanilla JS projects.">Modern web teknolojileri ile kullanıcı arayüzleri geliştirme. React, Vue ve vanilla JS projeleri.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024 — 2025</div>
+                    <div class="timeline-title" data-tr="Telegram Bot Geliştirici" data-en="Telegram Bot Developer">Telegram Bot Geliştirici</div>
+                    <div class="timeline-desc" data-tr="Telegram Bot API kullanarak otomasyon ve yardımcı botlar geliştirme." data-en="Developing automation and utility bots using Telegram Bot API.">Telegram Bot API kullanarak otomasyon ve yardımcı botlar geliştirme.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2023 — 2024</div>
+                    <div class="timeline-title" data-tr="Açık Kaynak Katkıcı" data-en="Open Source Contributor">Açık Kaynak Katkıcı</div>
+                    <div class="timeline-desc" data-tr="GitHub'da açık kaynak projelere katkı sağlama ve kendi projelerini yayınlama." data-en="Contributing to open-source projects on GitHub and publishing own projects.">GitHub'da açık kaynak projelere katkı sağlama ve kendi projelerini yayınlama.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card scroll-reveal" id="projectsSection">
+        <div class="projects-inner">
+            <h2 class="section-title" id="projectsTitle">Öne Çıkan Projeler</h2>
+            <div class="project-list">
+                <article class="project">
+                    <h3>Çiçek</h3>
+                    <p class="p-desc" data-tr="Gelişmiş Web Tabanlı Çiçek Scripti." data-en="Advanced Web Based Flower Script.">Gelişmiş Web Tabanlı Çiçek Scripti.</p>
+                    <a class="proj-cta" href="https://github.com/Poyrazefendi/Cicek" target="_blank">View Repo</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer scroll-reveal">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a class="footer-link" href="https://github.com/Poyrazefendi" target="_blank">GitHub</a>
+                <a class="footer-link" href="https://t.me/PoyrazEfendi" target="_blank">Telegram</a>
+                <a class="footer-link" href="https://instagram.com/bvuam" target="_blank">Instagram</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Poyraz Efendi. <span data-tr="Tüm hakları saklıdır." data-en="All rights reserved.">Tüm hakları saklıdır.</span> <span class="heart">&hearts;</span></p>
+        </div>
+    </footer>
+</main>
+
+<script>
+    let currentLang = 'tr';
+    const translations = {
+        tr: {
+            bio: "Web ve Android teknolojileriyle modern çözümler üretiyorum. Telegram ekosistemi ve bot geliştirme üzerine çalışmalar yapıyorum.",
+            projects: "Öne Çıkan Projeler",
+            btn: "EN",
+            skills: "Yetenekler",
+            spotify: "Dinliyorum",
+            spotifyLabel: "Şu an dinliyor",
+            timeline: "Deneyim"
+        },
+        en: {
+            bio: "I build modern solutions with Web and Android technologies. Currently focusing on Telegram ecosystem and custom bot development.",
+            projects: "Featured Projects",
+            btn: "TR",
+            skills: "Skills",
+            spotify: "Listening",
+            spotifyLabel: "Now playing",
+            timeline: "Experience"
+        }
+    };
+
+    const roleTexts = {
+        tr: ["Merhaba HoşGeldin", "Aşşağıya İnerek", "Bilgi Sahibi Olabilirsin"],
+        en: ["Merhaba HoşGeldin", "Aşşağıya İnerek", "Bilgi Sahibi Olabilirsin"]
+    };
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'tr' ? 'en' : 'tr';
+        const t = translations[currentLang];
+        document.getElementById('userBio').innerText = t.bio;
+        document.getElementById('projectsTitle').innerText = t.projects;
+        document.getElementById('langBtn').innerText = t.btn;
+        document.getElementById('skillsTitle').innerText = t.skills;
+        document.getElementById('spotifyTitle').innerText = t.spotify;
+        document.getElementById('spotifyLabel').innerText = t.spotifyLabel;
+        document.getElementById('timelineTitle').innerText = t.timeline;
+
+        document.querySelectorAll('[data-tr][data-en]').forEach(el => {
+            el.innerText = el.getAttribute('data-' + currentLang);
+        });
+
+        startTypewriter();
+    }
+
+    let twTimeout = null;
+    function startTypewriter() {
+        if (twTimeout) clearTimeout(twTimeout);
+        const el = document.getElementById('typewriterText');
+        const texts = roleTexts[currentLang];
+        let textIdx = 0, charIdx = 0, isDeleting = false;
+
+        function tick() {
+            const current = texts[textIdx];
+            if (!isDeleting) {
+                el.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === current.length) {
+                    isDeleting = true;
+                    twTimeout = setTimeout(tick, 2000);
+                    return;
+                }
+                twTimeout = setTimeout(tick, 70);
+            } else {
+                el.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    textIdx = (textIdx + 1) % texts.length;
+                    twTimeout = setTimeout(tick, 400);
+                    return;
+                }
+                twTimeout = setTimeout(tick, 40);
+            }
+        }
+        el.textContent = '';
+        twTimeout = setTimeout(tick, 1200);
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateThemeIcon(next);
+    }
+
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        if (theme === 'light') {
+            icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+        } else {
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>';
+        }
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+    }
+
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            document.getElementById('preloader').classList.add('done');
+            startTypewriter();
+            setTimeout(function() {
+                document.getElementById('avatar').classList.add('glow');
+            }, 800);
+        }, 800);
+    });
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                entry.target.querySelectorAll('.skill-fill').forEach(function(bar) {
+                    var width = bar.getAttribute('data-width');
+                    setTimeout(function() { bar.style.width = width + '%'; }, 200);
+                });
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(function(el) { observer.observe(el); });
+
+    document.addEventListener('mousemove', function(e) {
+        var glow = document.getElementById('cursorGlow');
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+
+    (function createParticles() {
+        var container = document.getElementById('particles');
+        var count = 25;
+        for (var i = 0; i < count; i++) {
+            var p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animation = 'float ' + (6 + Math.random() * 8) + 's ' + (Math.random() * 6) + 's infinite linear';
+            p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+            container.appendChild(p);
+        }
+    })();
+
+    document.addEventListener('pointerdown', function(e) {
+        var btn = e.target.closest('.social-btn, .proj-cta, .ctrl-btn');
+        if (!btn) return;
+        
+        var rect = btn.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        var size = Math.max(rect.width, rect.height);
+        
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        
+        btn.appendChild(ripple);
+        setTimeout(function() { ripple.remove(); }, 600);
+    });
+</script>
+
+</body>
+</html>
